@@ -27,7 +27,7 @@ Bem-vindo ao **Conecta Oficina Moto**, um sistema inteligente para gestão de of
 
 ## 📸 Prévia
 
-*(Aqui você pode adicionar screenshots do sistema — ou até GIFs mostrando ele em ação)*
+![Login]("./assets/01.png")
 
 ---
 
