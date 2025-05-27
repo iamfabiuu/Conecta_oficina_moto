@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendas - Sistema Oficina</title>
+    <link rel="icon" href="img/favicon_conecta.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/vendas.css" />
+    <!-- Firebase App (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+    <!-- Firestore (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <!-- Auth (compat), se usar -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+    <!-- Storage (compat), se usar -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+    <!-- jsPDF e autoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Ícones -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  </head>
+  <body class="futuristic-bg fade-in">
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <!-- Menu Global (Futurista com Neon) -->
+    <nav class="menu neon-border slide-in-left">
+      <div class="menu-items">
+        <a class="menu-item glow-hover" href="home.html">
+          <i data-lucide="home"></i>
+          <span>Início</span>
+        </a>
+        <a class="menu-item glow-hover" href="clientes.html">
+          <i data-lucide="users"></i>
+          <span>Clientes</span>
+        </a>
+        <a class="menu-item glow-hover" href="compras.html">
+          <i data-lucide="box"></i>
+          <span>Estoque</span>
+        </a>
+        <a class="menu-item active glow-hover" href="vendas.html">
+          <i data-lucide="shopping-cart"></i>
+          <span>Vendas</span>
+        </a>
+      </div>
+      <button id="logoutBtn" class="menu-sair glow-hover">
+        <i data-lucide="log-out"></i>
+        <span>Sair</span>
+      </button>
+    </nav>
+
+    <main class="vendas-container">
+      <!-- Conteúdo da aba Nova Venda -->
+      <div id="nova-venda" class="conteudo-aba ativa">
+        <!-- Formulário de Venda -->
+        <div class="form-container">
+          <h1><i class="fas fa-cash-register"></i> Nova Venda</h1>
+
+          <!-- Seleção de Cliente -->
+          <div class="selecao-cliente">
+            <h2><i class="fas fa-user"></i> Dados do Cliente</h2>
+            <div class="input-group">
+              <label for="cliente">Cliente*</label>
+              <select id="cliente" required>
+                <option value="">Selecione um cliente...</option>
+              </select>
+              <input
+                type="text"
+                id="buscaCliente"
+                placeholder="Buscar cliente..."
+              />
+            </div>
+            <div
+              id="info-cliente"
+              class="info-cliente"
+              style="
+                color: #5f8af7;
+                display: none;
+                margin-top: 10px;
+                padding: 15px;
+                background: #121212;
+                border-radius: 5px;
+              "
+            >
+              <!-- As informações do cliente serão inseridas aqui via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Itens da Venda -->
+          <div class="itens-venda">
+            <h2><i class="fas fa-boxes"></i> Itens da Venda</h2>
+            <div class="produto-selecao">
+              <div class="input-group">
+                <label for="produto">Produto*</label>
+                <select id="produto" required></select>
+                <small
+                  id="estoque-disponivel"
+                  style="display: none; color: #666"
+                ></small>
+              </div>
+              <div class="input-group">
+                <label for="quantidade">Quantidade*</label>
+                <input
+                  type="number"
+                  id="quantidade"
+                  min="1"
+                  value="1"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label for="preco-unitario">Preço Unitário (R$)*</label>
+                <input
+                  type="number"
+                  id="preco-unitario"
+                  min="0.01"
+                  step="0.01"
+                  required
+                />
+              </div>
+              <button type="button" id="btn-adicionar" class="btn-adicionar">
+                <i class="fas fa-plus"></i> Adicionar
+              </button>
+            </div>
+
+            <!-- Lista de Itens Adicionados -->
+            <table id="itens-table" class="tabela-itens">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Qtd</th>
+                  <th>Preço Unit.</th>
+                  <th>Subtotal</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Itens serão adicionados via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Opções de Frete e Pagamento -->
+          <div class="opcoes-venda">
+            <h2><i class="fas fa-truck"></i> Frete e Pagamento</h2>
+            <div class="frete-options">
+              <label class="switch-frete">
+                <span class="slider"></span>
+                <input type="checkbox" class="texto-switch" id="tem-frete" />
+                Incluir frete?
+              </label>
+              <div id="frete-detalhes" style="display: none">
+                <div class="input-group">
+                  <label for="valor-frete">Valor do Frete (R$)</label>
+                  <input
+                    type="number"
+                    id="valor-frete"
+                    min="0"
+                    step="0.01"
+                    value="0"
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="endereco-entrega">Endereço de Entrega</label>
+                  <textarea id="endereco-entrega" rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="forma-pagamento">Forma de Pagamento*</label>
+              <select id="forma-pagamento" required>
+                <option value="">Selecione...</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="cartao-debito">Cartão de Débito</option>
+                <option value="cartao-credito">Cartão de Crédito</option>
+                <option value="pix">PIX</option>
+                <option value="boleto">Boleto</option>
+                <option value="transferencia">Transferência Bancária</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="observacoes">Observações</label>
+              <textarea id="observacoes" rows="3"></textarea>
+            </div>
+          </div>
+
+          <!-- Resumo da Venda -->
+          <div class="resumo-venda">
+            <h2><i class="fas fa-file-invoice-dollar"></i> Resumo da Venda</h2>
+            <div class="resumo-detalhes">
+              <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
+              <p>Frete: <span id="frete-valor">R$ 0,00</span></p>
+              <p class="total">Total: <span id="total-venda">R$ 0,00</span></p>
+            </div>
+            <div class="acoes-venda">
+              <button type="button" id="btn-cancelar" class="btn-cancelar">
+                <i data-lucide="trash-2"></i> Cancelar
+              </button>
+              <button type="button" id="btn-finalizar" class="btn-finalizar">
+                <i data-lucide="check"></i> Finalizar Venda
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de Nota Fiscal -->
+        <div id="nota-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="nota-fiscal">
+              <!-- Conteúdo da nota será gerado via JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="historico-vendas" class="conteudo-aba">
+        <div class="form-container">
+          <h1><i data-lucide="history"></i> Histórico de Vendas</h1>
+
+          <div class="controles-historico">
+            <input
+              type="text"
+              id="busca-historico"
+              placeholder="Buscar por ID ou cliente..."
+            />
+            <button id="btn-atualizar-historico">
+              <i data-lucide="refresh-ccw"></i> Atualizar
+            </button>
+          </div>
+
+          <table id="tabela-historico">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Total</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- As vendas serão inseridas aqui via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/vendas.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

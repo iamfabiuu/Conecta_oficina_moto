@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Página não encontrada</title>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #ffe81f;
+      font-family: "Arial", sans-serif;
+      overflow: hidden;
+      cursor: url("https://cur.cursors-4u.net/symbols/sym-9/sym876.cur"), auto;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url("https://i.gifer.com/7bto.gif") repeat;
+      background-size: cover;
+      z-index: -1;
+    }
+
+    .notfound {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      perspective: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .crawl {
+      position: relative;
+      transform: rotateX(20deg);
+      transform-origin: bottom center;
+      animation: crawl 60s linear infinite;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .crawl .title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .crawl h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    @keyframes crawl {
+      0% {
+        top: 100%;
+      }
+      100% {
+        top: -300%;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: #ffe81f;
+      font-weight: bold;
+    }
+  </style>
+  <body>
+    <div class="stars"></div>
+    <section class="notfound">
+      <div class="crawl">
+        <div class="title">
+          <p>Erro 404</p>
+          <h1>Página não encontrada</h1>
+        </div>
+        <p>
+          Há muito tempo, em uma galáxia muito, muito distante... você tentou
+          acessar uma página que não existe.
+        </p>
+        <p>
+          Talvez o Império tenha escondido, ou os Jedi a protegeram. Volte para
+          a base e tente outra rota.
+        </p>
+        <p>Que a Força esteja com você.</p>
+        <p style="margin-top: 2em">
+          <a href="index.html" style="color: #ffe81f"
+            >← Voltar para a página inicial</a
+          >
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

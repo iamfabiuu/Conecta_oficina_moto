@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conecta Oficina Moto</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#00ff99" />
+    <link rel="apple-touch-icon" href="conecta_oficina_moto_icon_192x192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="img/favicon_conecta.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="styles/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <div class="logo-section">
+        <img
+          src="img/logo_PNG_OFCL.PNG"
+          alt="Logo Conecta Oficina Moto"
+          class="logo-img"
+        />
+      </div>
+
+      <div class="login-container">
+        <div class="login-header">
+          <i class="fas fa-motorcycle"></i>
+          <h1>ACESSO</h1>
+        </div>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="E-mail"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Senha"
+              required
+            />
+            <i
+              class="fas fa-eye toggle-password"
+              onclick="togglePassword()"
+            ></i>
+          </div>
+
+          <button type="submit" class="login-btn">ENTRAR</button>
+
+          <div class="login-footer">
+            <a href="register.html">Criar conta</a>
+            <span>•</span>
+            <a href="forgot.html">Esqueci a senha</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <button id="instalarApp" style="display: none">Instalar App</button>
+    <script>
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById("instalarApp").style.display = "block";
+      });
+
+      document.getElementById("instalarApp").addEventListener("click", () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("✅ Instalado com sucesso!");
+          } else {
+            console.log("❌ Recusado");
+          }
+          deferredPrompt = null;
+        });
+      });
+    </script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("../service-worker.js")
+            .then((reg) =>
+              console.log("✅ Service Worker registrado com sucesso!", reg)
+            )
+            .catch((err) =>
+              console.error("❌ Falha ao registrar Service Worker", err)
+            );
+        });
+      }
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/auth.js"></script>
+  </body>
+</html>

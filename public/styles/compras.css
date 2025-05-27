@@ -1,0 +1,548 @@
+/* ========== BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image: url("../img/blurry_computador.svg");
+  color: #00ffcc;
+  font-family: "Archivo", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
+  margin-left: 150px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Archivo", sans-serif;
+}
+
+/* ========== SCROLLBAR CUSTOM ========== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #00ffcc88;
+  border-radius: 4px;
+}
+
+/* ========== SIDEBAR / MENU ========== */
+.menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 150px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  border-right: 2px solid #20b2aa;
+  box-shadow: 0 0 15px #00ffcc33;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 10px;
+  z-index: 10;
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  color: #00ffd5;
+  font-size: 1rem;
+}
+
+.menu-item i {
+  color: #00ffd5;
+  transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #00ffd522;
+  box-shadow: 0 0 10px #00ffd555;
+  transform: scale(1.05);
+}
+
+.menu-item.active {
+  background-color: #00ffd533;
+  border-left: 4px solid #00ffd5;
+  font-weight: bold;
+}
+
+.menu-sair {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ff4d4d;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.menu-sair:hover {
+  background-color: #ff4d4d22;
+  box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* Formulários e containers */
+.form-container,
+.popup-content,
+.lista-container {
+  background: #00ffdd15;
+  border: 1px solid #00ffd5;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 0 12px #00ffd5aa;
+  max-width: 100%;
+  margin: 30px;
+  backdrop-filter: blur(12px);
+}
+
+h1,
+h2 {
+  font-size: 1.8rem;
+  color: #00ffd5;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-weight: bold;
+  color: #affff5;
+}
+
+.input-group input,
+.input-group select {
+  padding: 0.6rem;
+  border: 2px solid #00ffd5;
+  border-radius: 6px;
+  background: #1c1c1c;
+  color: #e0fff0;
+  outline: none;
+  transition: box-shadow 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  box-shadow: 0 0 6px #00ffd5aa;
+  border: 2px solid #00ffd5;
+}
+
+button[type="submit"] {
+  background: linear-gradient(45deg, #00ffae, #00ffd5);
+  color: #000;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00ffd5cc;
+  transition: 0.3s;
+}
+
+.btn-fechar {
+  margin-top: 15px;
+  background: #ff0044;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.alerta,
+.erro,
+.sucesso {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.alerta {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+.erro {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.sucesso {
+  background-color: #4dff4d;
+  color: black;
+}
+
+button[type="submit"]:hover {
+  transform: scale(1.05);
+  background: #00ffae;
+}
+
+/* Range personalizado */
+.range-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.range-container input[type="range"] {
+  flex: 1;
+  accent-color: #00ffd5;
+}
+
+#preco-venda.readonly {
+  background-color: #222;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Verificação de código */
+.verify-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.verify-container input {
+  flex: 1;
+}
+
+.verify-container button {
+  background: #00ffd5;
+  color: #000;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: bold;
+}
+
+#codigo-status {
+  margin-top: 0.4rem;
+  color: #ffcc00;
+}
+
+/* Popup */
+.popup-container {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.btn-fechar {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  background: none;
+  color: #00ffd5;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/* Lista de produtos */
+.lista-container {
+  background: #00ffdd15;
+  border: 1px solid #00ffd5;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 0 10px #00ffd555;
+  backdrop-filter: blur(12px);
+}
+
+/* Filtros */
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-limpar {
+  background: #222;
+  color: #00ffd5;
+  border: 1px solid #00ffd5;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-limpar:hover {
+  background: #00ffd5;
+  color: #000;
+}
+
+/* Tabela */
+.tabela-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1c1c1c;
+  color: #e0fff0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #00ffd533;
+  text-align: left;
+}
+
+th {
+  background: #00ffd533;
+  color: #00ffd5;
+  text-shadow: 0 0 3px #00ffd5aa;
+}
+
+tr:hover {
+  background: #00ffd511;
+}
+
+/* Estilo base para todos os botões */
+.botao {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin-right: 8px;
+}
+
+/* Botão Atualizar */
+.btn-editar {
+  border-radius: 5px;
+  background-color: #4caf50; /* verde vibe positivo */
+  color: white;
+}
+
+.btn-editar:hover {
+  border-radius: 5px;
+  background-color: #45a049;
+  box-shadow: 0 5px 10px rgba(76, 175, 80, 0.6);
+}
+
+/* Botão Excluir */
+.btn-excluir {
+  border-radius: 5px;
+  background-color: #f44336; /* vermelho clássico do delete */
+  color: white;
+}
+
+.btn-excluir:hover {
+  border-radius: 5px;
+  background-color: #d32f2f;
+  box-shadow: 0 5px 10px rgba(244, 67, 54, 0.6);
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 900px) {
+  body {
+    margin-left: 80px;
+  }
+  .menu {
+    width: 80px;
+  }
+  .menu-item {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .menu-item i {
+    font-size: 1.2rem;
+  }
+  .menu-item span {
+    display: none; /* Esconde texto e deixa só ícones */
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    margin-left: 0;
+    background-image: url("../img/blurry_mobile.svg");
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .menu {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-right: none;
+    border-top: 2px solid #20b2aa;
+  }
+  .menu-items {
+    flex-direction: row;
+    gap: 0;
+    width: 100%;
+  }
+  .menu-item {
+    justify-content: center;
+    padding: 8px;
+    flex: 1;
+  }
+  .menu-item span {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-container,
+  .popup-content,
+  .lista-container {
+    padding: 1.5rem;
+    margin: 20px 10px;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  button[type="submit"],
+  .btn-limpar,
+  .btn-editar {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  table th,
+  table td {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .menu-item i {
+    font-size: 1rem;
+  }
+
+  button[type="submit"],
+  .btn-limpar,
+  .btn-editar {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Botão hambúrguer */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 20;
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 100%;
+  height: 4px;
+  background-color: #00ffd5;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Quando aberto */
+.hamburger.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active div:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Sidebar escondida inicialmente no mobile */
+.menu {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.menu.active {
+  transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+  /* Desktop mantém o menu fixo */
+  .menu {
+    transform: translateX(0);
+  }
+  .hamburger {
+    display: none;
+  }
+}

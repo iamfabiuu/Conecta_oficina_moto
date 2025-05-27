@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Início</title>
+    <link rel="icon" href="img/favicon_conecta.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="styles/futurista.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  </head>
+
+  <div id="loader" class="loader-container">
+    <div class="loader-ring"></div>
+    <span class="loader-text">Carregando Oficina...</span>
+  </div>
+
+  <body class="futuristic-bg fade-in">
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <!-- Menu Global (Futurista com Neon) -->
+    <nav class="menu neon-border slide-in-left">
+      <div class="menu-items">
+        <a class="menu-item active glow-hover" href="home.html">
+          <i data-lucide="home"></i>
+          <span>Início</span>
+        </a>
+        <a class="menu-item glow-hover" href="clientes.html">
+          <i data-lucide="users"></i>
+          <span>Clientes</span>
+        </a>
+        <a class="menu-item glow-hover" href="compras.html">
+          <i data-lucide="box"></i>
+          <span>Estoque</span>
+        </a>
+        <a class="menu-item glow-hover" href="vendas.html">
+          <i data-lucide="shopping-cart"></i>
+          <span>Vendas</span>
+        </a>
+      </div>
+      <button id="logoutBtn" class="menu-sair glow-hover">
+        <i data-lucide="log-out"></i>
+        <span>Sair</span>
+      </button>
+    </nav>
+
+    <!-- Saudação -->
+    <div id="userGreeting" class="greeting-text fade-in">
+      <span class="wave">👋</span> Bem-vindo(a),
+      <span id="userName" class="highlight-text"></span>!
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="header-title fade-in-delayed">
+      <h1>Dashboard - <span class="neon-text">Conecta Oficina Moto</span></h1>
+    </header>
+
+    <!-- Painel Principal -->
+    <main class="dashboard grid-cards fade-in-delayed">
+      <div class="card neon-card glow-hover">
+        <h2 class="card-title">Quantitativo de Clientes</h2>
+        <canvas id="graficoClientes"></canvas>
+      </div>
+
+      <div class="card neon-card glow-hover">
+        <h2 class="card-title">Estoque por Categoria</h2>
+        <canvas id="graficoPecasEstoque"></canvas>
+      </div>
+
+      <div class="card neon-card glow-hover">
+        <h2 class="card-title">Última Venda Realizada</h2>
+        <canvas id="graficoUltVenda"></canvas>
+      </div>
+
+      <div class="card neon-card glow-hover">
+        <h2 class="card-title">Vendas no Mês Atual</h2>
+        <canvas id="graficoVendasMes"></canvas>
+      </div>
+
+      <div class="card neon-card glow-hover card-resumo" id="cardTotalEstoque">
+        <h3 class="card-title">Resumo do Estoque</h3>
+        <p class="resumo-glow" id="totalPecas">Carregando...</p>
+        <p class="resumo-glow menor" id="valorEstoque">Carregando...</p>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+      lucide.createIcons();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/inicio.js"></script>
+  </body>
+</html>
