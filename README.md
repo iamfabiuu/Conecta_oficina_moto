@@ -40,10 +40,6 @@ git clone https://github.com/iamfabiuu/conecta-oficina-moto.git
 # Abra no navegador (não precisa de servidor backend se estiver usando Firebase já configurado)
 ```
 
-⚠️ **Importante:**  
-⚙️ Configure as chaves do Firebase no arquivo `.env` (ou diretamente no código se estiver embutido).  
-🛡️ Nunca suba informações sensíveis (senhas, tokens, chaves) no repositório público.
-
 ---
 
 ## 🧙‍♂️ Autor
